@@ -1,5 +1,17 @@
 body {
+  background-color: #f5f5f5;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+.list {
+  padding: 0;
+}
+
+.list-item {
+  background-color: #fff;
+  border: 1px solid #efefef;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
 }
