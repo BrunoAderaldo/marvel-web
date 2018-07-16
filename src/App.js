@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -12,14 +13,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.getUser();
+    this.getCharacters();
   }
 
-  async getUser() {
+  async getCharacters() {
     try {
-      const response = await axios.get(`/characters?orderBy=name&apikey=${process.env.REACT_APP_MARVEL_PUBLIC}`);
-      console.log(response.data);
-      this.setState({ characters: response.data.data.results, count: response.data.data.count });
+      const response = await axios.get(`/characters?orderBy=name&limit=20&apikey=${process.env.REACT_APP_MARVEL_PUBLIC}`);
+      const { results, count } = response.data.data;
+
+      console.log(results);
+
+      this.setState({ characters: results, count });
     } catch (error) {
       console.error(error);
     }
@@ -28,7 +32,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <span>{ this.state.count } Characters</span>
+        <span>{this.state.count} Characters</span>
         <ul className="list">
           {
             this.state.characters.map(character => (
