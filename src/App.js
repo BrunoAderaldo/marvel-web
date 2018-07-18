@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const marvelKey = process.env.REACT_APP_MARVEL_PUBLIC;
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class App extends Component {
 
   async getCharacters() {
     try {
-      const response = await axios.get(`/characters?orderBy=name&limit=20&apikey=${process.env.REACT_APP_MARVEL_PUBLIC}`);
+      const response = await axios.get(`/characters?orderBy=name&limit=20&apikey=${marvelKey}`);
       const { results, count } = response.data.data;
 
       console.log(results);
@@ -29,20 +30,31 @@ class App extends Component {
     }
   }
 
+  mountHeroesList() {
+    const { characters } = this.state;
+
+    return (
+      <ul className="list">
+        {
+          characters.map(character => {
+            const { path, extension } = character.thumbnail;
+
+            return <li key={character.id} className="list-item">
+              <img src={`${path}.${extension}`} alt={`${character.name} hero`} className="card-image" />
+              <h5>{character.name}</h5>
+              <h6>{character.id}</h6>
+            </li>
+          })
+        }
+      </ul>
+    );
+  }
+
   render() {
     return (
       <div className="App">
         <span>{this.state.count} Characters</span>
-        <ul className="list">
-          {
-            this.state.characters.map(character => (
-              <li className="list-item" key={character.id}>
-                <h5>{character.name}</h5>
-                <h6>{character.id}</h6>
-              </li>
-            ))
-          }
-        </ul>
+        { this.mountHeroesList() }
       </div>
     );
   }
