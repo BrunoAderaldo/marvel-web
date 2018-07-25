@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
-const marvelKey = process.env.REACT_APP_MARVEL_PUBLIC;
+const MARVEL_KEY = process.env.REACT_APP_MARVEL_PUBLIC;
 
 class App extends Component {
   constructor(props) {
@@ -19,14 +20,12 @@ class App extends Component {
 
   async getCharacters() {
     try {
-      const response = await axios.get(`/characters?orderBy=name&limit=20&apikey=${marvelKey}`);
+      const response = await axios.get(`/characters?orderBy=name&limit=20&apikey=${MARVEL_KEY}`);
       const { results, count } = response.data.data;
 
-      console.log(results);
-
       this.setState({ characters: results, count });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   }
 
@@ -39,11 +38,15 @@ class App extends Component {
           characters.map(character => {
             const { path, extension } = character.thumbnail;
 
-            return <li key={character.id} className="list-item">
-              <img src={`${path}.${extension}`} alt={`${character.name} hero`} className="card-image" />
-              <h5>{character.name}</h5>
-              <h6>{character.id}</h6>
-            </li>
+            return (
+              <li key={character.id} className="list-item">
+                <Link to={`/hero/${character.id}`}>
+                  <img src={`${path}.${extension}`} alt={`${character.name} hero`} className="card-image" />
+                  <h5>{character.name}</h5>
+                  <h6>{character.id}</h6>
+                </Link>
+              </li>
+            )
           })
         }
       </ul>
