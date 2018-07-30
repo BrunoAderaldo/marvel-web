@@ -33,13 +33,13 @@ class App extends Component {
     const { characters } = this.state;
 
     return (
-      <ul className="list">
+      <ul className="heroes-list">
         {
           characters.map(character => {
             const { path, extension } = character.thumbnail;
 
             return (
-              <li key={character.id} className="list-item">
+              <li key={character.id} className="heroes-list-item">
                 <Link to={`/hero/${character.id}`}>
                   <img src={`${path}.${extension}`} alt={`${character.name} hero`} className="card-image" />
                   <h5>{character.name}</h5>
