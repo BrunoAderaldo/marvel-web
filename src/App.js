@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const MARVEL_KEY = process.env.REACT_APP_MARVEL_PUBLIC;
 
@@ -33,31 +33,32 @@ class App extends Component {
     const { characters } = this.state;
 
     return (
-      <ul className="heroes-list">
+      <div className="columns is-multiline">
         {
           characters.map(character => {
             const { path, extension } = character.thumbnail;
 
             return (
-              <li key={character.id} className="heroes-list-item">
+              <div key={character.id} className="heroes-list-item column">
                 <Link to={`/hero/${character.id}`}>
                   <img src={`${path}.${extension}`} alt={`${character.name} hero`} className="card-image" />
                   <h5>{character.name}</h5>
                   <h6>{character.id}</h6>
                 </Link>
-              </li>
+              </div>
             )
           })
         }
-      </ul>
+      </div>
     );
   }
 
   render() {
     return (
-      <div className="App">
-        <span>{this.state.count} Characters</span>
+      <div className="container is-fluid">
         { this.mountHeroesList() }
+
+        <span>{this.state.count} Characters</span>
       </div>
     );
   }
