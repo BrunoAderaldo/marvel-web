@@ -18,7 +18,7 @@ class HeroCollection extends Component {
                 </div>
                 <div className="hero-collection-items">
                   {
-                    items.map(item => <span key={item.name}>{item.name}</span>)
+                    items.map((item, i) => <span key={i}>{item.name}</span>)
                   }
                 </div>
               </li>
@@ -41,6 +41,8 @@ class HeroCollection extends Component {
         }
       }
     }
+
+    console.log(collections);
 
     return (
       <div className="hero-resource">
