@@ -7,8 +7,8 @@ class HeroContent extends Component {
 
     return (
       <div className="hero-content">
-        <h2 className="hero-name">{name}</h2>
-        <p className="hero-description">{description}</p>
+        <h2 className="hero-name is-size-3">{name}</h2>
+        <p className="hero-description is-size-5">{ description || 'no description provided' }</p>
       </div>
     );
   }
